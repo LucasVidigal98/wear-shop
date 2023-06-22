@@ -10,6 +10,7 @@ import { HomeContainer, Product } from "../styles/pages/home"
 
 import 'keen-slider/keen-slider.min.css'
 import Stripe from "stripe"
+import { Bag } from "@phosphor-icons/react"
 
 interface HomeProps {
   products: {
@@ -42,8 +43,14 @@ export default function Home({ products }: HomeProps) {
                 <Image src={product.imageUrl} width={520} height={480} alt="" />
 
                 <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </div>
+
+                  <button onClick={() => console.log('oi')}>
+                    <Bag size={32} color="#fff" />
+                  </button>
                 </footer>
               </Product>
             </Link>
@@ -66,7 +73,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       id: product.id,
       name: product.name,
-      imageUrl: product.images[0],
+      imageUrl: product.images ? product.images[0] : '',
       price: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL'
